@@ -48,6 +48,10 @@ html{
 
 scroll-behavior:smooth;
 
+overflow-x:hidden;
+
+width:100%;
+
 }
 
 body{
@@ -61,6 +65,10 @@ color:var(--text);
 line-height:1.7;
 
 overflow-x:hidden;
+
+width:100%;
+
+position:relative;
 
 }
 
@@ -198,6 +206,41 @@ width:100%;
 
 }
 
+/* Mobile hamburger toggle button (hidden on desktop) */
+.nav-toggle{
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+    width:38px;
+    height:38px;
+    background:transparent;
+    border:none;
+    cursor:pointer;
+    z-index:1001;
+}
+
+.nav-toggle span{
+    display:block;
+    width:24px;
+    height:2px;
+    background:var(--green);
+    transition:.35s ease;
+}
+
+.nav-toggle.active span:nth-child(1){
+    transform:translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.active span:nth-child(2){
+    opacity:0;
+}
+
+.nav-toggle.active span:nth-child(3){
+    transform:translateY(-7px) rotate(-45deg);
+}
+
 
 
 /* =========================
@@ -221,6 +264,8 @@ justify-content:center;
 padding-top:80px;
 
 background:url("assets/main background.png") center center/cover;
+
+overflow:hidden;
 
 }
 
@@ -278,11 +323,11 @@ margin-bottom:30px;
 
 font-family:'Cormorant Garamond',serif;
 
-font-size:88px;
+font-size:clamp(38px, 7vw, 88px);
 
 font-weight:600;
 
-line-height:1.02;
+line-height:1.05;
 
 margin-bottom:28px;
 
@@ -294,7 +339,7 @@ max-width:640px;
 
 margin:auto;
 
-font-size:20px;
+font-size:clamp(15px, 2vw, 20px);
 
 opacity:.95;
 
@@ -392,7 +437,7 @@ letter-spacing:3px;
 
 font-family:'Cormorant Garamond',serif;
 
-font-size:60px;
+font-size:clamp(32px, 5vw, 60px);
 
 margin:18px 0;
 
@@ -410,6 +455,8 @@ color:var(--light);
 
 font-size:18px;
 
+padding:0 16px;
+
 }
 /* ===================================================
    PRODUCTS SECTION
@@ -420,6 +467,8 @@ font-size:18px;
     padding:140px 0;
 
     position:relative;
+
+    overflow:hidden;
 
 }
 
@@ -649,9 +698,7 @@ font-size:18px;
 
     font-family:'Cormorant Garamond',serif;
 
-    font-size:62px;
-
-    color:var(--green);
+    font-size:clamp(30px, 5vw, 62px);
 
     margin:20px 0;
 
@@ -668,6 +715,8 @@ font-size:18px;
     font-size:19px;
 
     line-height:1.9;
+
+    padding:0 16px;
 
 }
 
@@ -1044,6 +1093,70 @@ font-size:52px;
 
 @media(max-width:768px){
 
+/* Mobile nav: hamburger shows, links collapse into dropdown */
+.nav-toggle{
+    display:flex;
+}
+
+nav ul{
+
+    position:fixed;
+
+    top:72px;
+
+    left:0;
+
+    width:100%;
+
+    flex-direction:column;
+
+    gap:0;
+
+    background:rgba(248,245,239,.98);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid var(--border);
+
+    max-height:0;
+
+    overflow:hidden;
+
+    transition:max-height .4s ease;
+
+}
+
+nav ul.open{
+
+    max-height:300px;
+
+}
+
+nav ul li{
+
+    width:100%;
+
+    text-align:center;
+
+}
+
+nav ul li a{
+
+    display:block;
+
+    padding:18px 20px;
+
+    font-size:16px;
+
+}
+
+/* Prevent background-attachment:fixed glitches on mobile browsers */
+.hero{
+
+    background-attachment:scroll;
+
+}
+
 .navbar .container{
 
 height:72px;
@@ -1053,18 +1166,6 @@ height:72px;
 .logo{
 
 font-size:28px;
-
-}
-
-nav ul{
-
-gap:18px;
-
-}
-
-nav a{
-
-font-size:14px;
 
 }
 
@@ -1086,22 +1187,6 @@ padding:8px 16px;
 
 }
 
-.hero h1{
-
-font-size:52px;
-
-line-height:1.05;
-
-}
-
-.hero p{
-
-font-size:17px;
-
-line-height:1.8;
-
-}
-
 .hero-btn{
 
 padding:16px 30px;
@@ -1117,12 +1202,6 @@ padding:90px 0;
 .section-heading{
 
 margin-bottom:50px;
-
-}
-
-.section-heading h2{
-
-font-size:42px;
 
 }
 
@@ -1158,12 +1237,6 @@ padding:100px 0;
 
 }
 
-.about h2{
-
-font-size:42px;
-
-}
-
 .about p{
 
 font-size:17px;
@@ -1185,30 +1258,6 @@ padding:60px 20px;
 =========================== */
 
 @media(max-width:480px){
-
-.hero h1{
-
-font-size:42px;
-
-}
-
-.hero p{
-
-font-size:16px;
-
-}
-
-.section-heading h2{
-
-font-size:36px;
-
-}
-
-.about h2{
-
-font-size:36px;
-
-}
 
 .card img{
 
@@ -1235,6 +1284,67 @@ justify-content:center;
 width:100%;
 
 justify-content:center;
+
+}
+
+}
+
+
+
+/* ===========================
+   RESPONSIVE 380px (small phones)
+=========================== */
+
+@media(max-width:380px){
+
+.logo{
+
+font-size:22px;
+
+}
+
+.navbar .container{
+
+height:64px;
+
+}
+
+nav ul{
+
+top:64px;
+
+}
+
+.hero{
+
+padding:90px 16px 50px;
+
+}
+
+.hero-tag{
+
+font-size:10px;
+
+padding:7px 14px;
+
+}
+
+.card-content{
+
+padding:22px;
+
+}
+
+.card-content h3{
+
+font-size:24px;
+
+}
+
+.about p,
+.section-heading p{
+
+font-size:15.5px;
 
 }
 
